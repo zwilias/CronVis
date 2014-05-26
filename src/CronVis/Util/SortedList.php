@@ -4,12 +4,21 @@ namespace CronVis\Util;
 
 use Countable;
 
-abstract class SortedList implements Countable
+class SortedList implements Countable
 {
-    /**
-     * @var mixed[]
-     */
+    /** @var mixed[] */
     protected $_internalList = array();
+
+    /** @var Comparator */
+    protected $_comparator;
+
+    /**
+     * @param Comparator $comparator
+     */
+    public function __construct(Comparator $comparator)
+    {
+        $this->_comparator = $comparator;
+    }
 
     /**
      * @param mixed $item
@@ -57,9 +66,12 @@ abstract class SortedList implements Countable
     /**
      * Returns a negative integer if $a comes before $b, 0 if they are considered equal, and a strictly positive integer if $a comes after $b
      *
-     * @param mixed $a
-     * @param mixed $b
-     * @return int
+     * @param   mixed $a
+     * @param   mixed $b
+     * @return  int
      */
-    abstract protected function _compare($a, $b);
+    protected function _compare($a, $b)
+    {
+        return $this->_comparator->compare($a, $b);
+    }
 }

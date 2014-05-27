@@ -14,6 +14,8 @@ class CronTab
     protected $_endTime;
     /** @var SortedEventList  */
     protected $_eventList;
+    /** @var CronEntry[] */
+    protected $_entries = [];
 
     public function __construct()
     {
@@ -24,6 +26,7 @@ class CronTab
 
     public function addCronEntry(CronEntry $entry)
     {
+        $this->_entries[] = $entry;
         $this->_eventList->add($entry->getNextEvent($this->_startTime));
     }
 
@@ -41,6 +44,16 @@ class CronTab
 
             $this->_eventList->add($event);
             yield $event;
+        }
+    }
+
+    /**
+     * @return CronEntry[]
+     */
+    public function getEntries()
+    {
+        foreach ($this->_entries as $entry) {
+            yield $entry;
         }
     }
 

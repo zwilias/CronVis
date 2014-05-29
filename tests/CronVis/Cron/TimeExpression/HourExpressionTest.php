@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ilias
- * Date: 27/05/14
- * Time: 22:45
- */
+
 
 namespace CronVis\Cron\TimeExpression;
 
@@ -55,4 +50,3 @@ class HourExpressionTest extends \PHPUnit_Framework_TestCase
         new HourExpression(24);
     }
 }
- 

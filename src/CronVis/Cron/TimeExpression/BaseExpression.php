@@ -11,6 +11,11 @@ abstract class BaseExpression
     const ANY = '*';
 
     /**
+     * @param string $input
+     */
+    abstract public function __construct($input = self::ANY);
+
+    /**
      * @param string $expression
      */
     protected function throwInvalidExpression($expression)
@@ -27,5 +32,9 @@ abstract class BaseExpression
      */
     protected abstract function _getDescription();
 
+    /**
+     * @param   DateTime $dateTime
+     * @return  boolean
+     */
     public abstract function matches(DateTime $dateTime);
 }

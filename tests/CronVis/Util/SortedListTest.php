@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ilias
- * Date: 26/05/14
- * Time: 22:46
- */
+
 
 namespace CronVis\Util;
 

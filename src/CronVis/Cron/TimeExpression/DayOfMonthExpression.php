@@ -28,7 +28,7 @@ class DayOfMonthExpression extends BaseExpression
      */
     public function matches(DateTime $dateTime)
     {
-        return $this->_at == self::ANY || (int)$dateTime->format('j') == $this->_at;
+        return $this->_at === self::ANY || (int)$dateTime->format('j') == $this->_at;
     }
 
     protected function _verifyFormat($at)

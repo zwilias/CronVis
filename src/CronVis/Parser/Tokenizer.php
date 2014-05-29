@@ -4,10 +4,6 @@ namespace CronVis\Parser;
 
 class Tokenizer
 {
-    const KEY_TOKEN     = 0;
-    const KEY_CONTENT   = 1;
-    const KEY_OFFSET    = 2;
-
     /** @var Matchable[] */
     protected $_terminals = array();
 
@@ -31,7 +27,7 @@ class Tokenizer
         while ($offset < strlen($input))
         {
             $token = $this->_match($input, $offset);
-            $offset += strlen($token[self::KEY_CONTENT]);
+            $offset += strlen($token[Token::KEY_CONTENT]);
             $tokens[] = $token;
         }
 
@@ -51,9 +47,9 @@ class Tokenizer
         foreach ($this->_terminals as $token => $matcher) {
             if (($content = $matcher->matches($input)) !== false) {
                 return array(
-                    self::KEY_TOKEN     => $token,
-                    self::KEY_CONTENT   => $content,
-                    self::KEY_OFFSET    => $offset
+                    Token::KEY_TOKEN     => $token,
+                    Token::KEY_CONTENT   => $content,
+                    Token::KEY_OFFSET    => $offset
                 );
             }
         }

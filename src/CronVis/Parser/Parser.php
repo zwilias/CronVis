@@ -68,7 +68,7 @@ abstract class Parser
             ? $this->_consume()
             : $this->_peek();
 
-        if (in_array($token[Tokenizer::KEY_TOKEN], $allowedMarkers)) {
+        if (in_array($token[Token::KEY_TOKEN], $allowedMarkers)) {
             return [$expressionType => $this->_combineTokens($stopBefore)];
         }
 
@@ -85,15 +85,15 @@ abstract class Parser
         $output = [];
         $until[] = Token::MARK_NULL;
 
-        if ($this->_peek()[Tokenizer::KEY_TOKEN] == Token::WHITESPACE) {
+        if ($this->_peek()[Token::KEY_TOKEN] == Token::WHITESPACE) {
             $this->_consume();
         }
 
-        while (!in_array(($this->_peek()[Tokenizer::KEY_TOKEN]), $until)) {
-            $output[] = $this->_consume()[Tokenizer::KEY_CONTENT];
+        while (!in_array(($this->_peek()[Token::KEY_TOKEN]), $until)) {
+            $output[] = $this->_consume()[Token::KEY_CONTENT];
         }
 
-        if ($this->_peek()[Tokenizer::KEY_TOKEN] == Token::WHITESPACE) {
+        if ($this->_peek()[Token::KEY_TOKEN] == Token::WHITESPACE) {
             $this->_consume();
         }
 
@@ -127,6 +127,6 @@ abstract class Parser
 
     protected function _throwUnexpectedTokenException($token)
     {
-        throw new ParseException(sprintf('unexpected token \'%s\' at offset %d.', $token[Tokenizer::KEY_TOKEN], $token[Tokenizer::KEY_OFFSET]));
+        throw new ParseException(sprintf('unexpected token \'%s\' at offset %d.', $token[Token::KEY_TOKEN], $token[Token::KEY_OFFSET]));
     }
 }

@@ -3,6 +3,7 @@
 
 namespace CronVis\Cron;
 
+use CronVis\Parser\Token;
 use CronVis\Parser\Parser;
 use CronVis\Parser\Tokenizer;
 
@@ -33,7 +34,7 @@ class CronParser extends Parser
         $token = $this->_peek();
         $result = null;
 
-        switch ($token[Tokenizer::KEY_TOKEN]) {
+        switch ($token[Token::KEY_TOKEN]) {
             case CronToken::MARK_NULL:
                 $result = $token;
                 break;
@@ -92,7 +93,7 @@ class CronParser extends Parser
         ];
 
         while (($token = $this->_peek()) !== CronToken::$NULL_TOKEN) {
-            switch ($token[Tokenizer::KEY_TOKEN]) {
+            switch ($token[Token::KEY_TOKEN]) {
                 case CronToken::MARK_INPUT:
                     $cronExpression = array_merge(
                         $cronExpression,

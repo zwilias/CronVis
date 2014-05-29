@@ -13,18 +13,17 @@ abstract class BaseExpression
     /**
      * @param string $input
      */
-    abstract public function __construct($input = self::ANY);
-
-    /**
-     * @param string $expression
-     */
-    protected function throwInvalidExpression($expression)
+    public function __construct($input = self::ANY)
     {
-        throw new InvalidArgumentException(sprintf(
-            'Invalid %s expression supplied: %s',
-            $this->_getDescription(),
-            $expression
-        ));
+        if (!$this->_verifyFormat($input)) {
+            throw new InvalidArgumentException(sprintf(
+                'Invalid %s expression supplied: %s',
+                $this->_getDescription(),
+                $input
+            ));
+        }
+
+        $this->_assignInput($input);
     }
 
     /**
@@ -37,4 +36,15 @@ abstract class BaseExpression
      * @return  boolean
      */
     public abstract function matches(DateTime $dateTime);
+
+    /**
+     * @param   string $input
+     * @return  boolean
+     */
+    protected abstract function _verifyFormat($input);
+
+    /**
+     * @param   string $input
+     */
+    protected abstract function _assignInput($input);
 }

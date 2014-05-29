@@ -13,12 +13,8 @@ class MonthExpression extends BaseExpression
     /**
      * @param string $input
      */
-    public function __construct($input = self::ANY)
+    protected function _assignInput($input)
     {
-        if (!$this->_verifyFormat($input)) {
-            $this->throwInvalidExpression($input);
-        }
-
         $this->_at = $input;
     }
 

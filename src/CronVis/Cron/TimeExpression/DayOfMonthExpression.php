@@ -11,15 +11,11 @@ class DayOfMonthExpression extends BaseExpression
     protected $_at;
 
     /**
-     * @param string $at
+     * @param string $input
      */
-    public function __construct($at = self::ANY)
+    protected function _assignInput($input)
     {
-        if (!$this->_verifyFormat($at)) {
-            $this->throwInvalidExpression($at);
-        }
-
-        $this->_at = $at;
+        $this->_at = $input;
     }
 
     /**

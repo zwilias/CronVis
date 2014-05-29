@@ -26,7 +26,7 @@ class DayOfWeekExpressionTest extends \PHPUnit_Framework_TestCase
 
 
         $oneDay = new \DateInterval('P1D');
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i < 6; $i++) {
             $this->assertFalse($dayOfWeekExpression->matches($time));
             $time->add($oneDay);
         }
@@ -60,5 +60,50 @@ class DayOfWeekExpressionTest extends \PHPUnit_Framework_TestCase
     public function testConstructException_DOWOver7()
     {
         new DayOfWeekExpression(8);
+    }
+
+    /**
+     * @param $inputA
+     * @param $inputB
+     * @dataProvider provideEquivalentExpressions
+     */
+    public function testEquivalentExpression($inputA, $inputB)
+    {
+        $expressionA = new DayOfWeekExpression($inputA);
+        $expressionB = new DayOfWeekExpression($inputB);
+        $time = new \DateTime('2014-05-27 22:47:00');
+
+
+        $oneDay = new \DateInterval('P1D');
+        for ($i = 0; $i < 7; $i++) {
+            $this->assertEquals(
+                $expressionA->matches($time),
+                $expressionB->matches($time)
+            );
+            $time->add($oneDay);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function provideEquivalentExpressions()
+    {
+        return [
+            ['mon', 1],
+            ['tue', 2],
+            ['wed', 3],
+            ['thu', 4],
+            ['fri', 5],
+            ['sat', 6],
+            ['sun', 7],
+            ['mon', 'MONDAY'],
+            ['tue', 'TUESDAY'],
+            ['wed', 'WEDNESDAY'],
+            ['thu', 'THURSDAY'],
+            ['fri', 'FRIDAY'],
+            ['sat', 'SATURDAY'],
+            ['sun', 'SUNDAY'],
+        ];
     }
 }

@@ -8,6 +8,8 @@ use DateTime;
 
 class DayOfWeekExpression extends BaseExpression
 {
+    use TextualCheckTrait;
+
     /** @var string */
     protected $_at;
     /** @var string[] */
@@ -18,8 +20,8 @@ class DayOfWeekExpression extends BaseExpression
      */
     protected function _assignInput($input)
     {
-        if ($this->_isValidWeekDay($input)) {
-            $input = array_search(substr(strtolower($input), 0, 3), self::$_WEEKDAYS) + 1;
+        if ($this->_isValidTextual($input, self::$_WEEKDAYS)) {
+            $input = $this->_getTextualOffset($input, self::$_WEEKDAYS);
         }
 
         if ($input !== self::ANY) {
@@ -57,31 +59,7 @@ class DayOfWeekExpression extends BaseExpression
      */
     protected function _verifyFormat($input)
     {
-        return $input === self::ANY
-            || $this->_isValidWeekDay($input)
-            || ($input >= 0 && $input <= 7);
-    }
-
-    /**
-     * @param   string $input
-     * @return  boolean
-     */
-    protected function _isValidWeekDay($input)
-    {
-        $input = strtolower($input);
-
-        $mapFunction = function($weekDay) use ($input) {
-            return strpos(strtolower($input), $weekDay) === 0;
-        };
-
-        $reduceFunction = function($carry, $input) {
-            return $carry | $input;
-        };
-
-        return array_reduce(
-            array_map($mapFunction, self::$_WEEKDAYS),
-            $reduceFunction,
-            false
-        );
+        return $this->_isValidTextual($input, self::$_WEEKDAYS)
+            || $this->_verifyAtFormat($input, 0, 7);
     }
 }

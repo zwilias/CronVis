@@ -29,7 +29,7 @@ class DayOfMonthExpression extends BaseExpression
 
     protected function _verifyFormat($at)
     {
-        return $at === self::ANY || ($at > 1 && $at <= 31);
+        return $this->_verifyAtFormat($at, 1, 31);
     }
 
     /**

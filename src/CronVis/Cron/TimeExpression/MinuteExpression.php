@@ -33,7 +33,7 @@ class MinuteExpression extends BaseExpression
      */
     protected function _verifyFormat($at)
     {
-        return $at === self::ANY || ($at >= 0 && $at < 60);
+        return $this->_verifyAtFormat($at, 0, 59);
     }
 
     protected function _getDescription()

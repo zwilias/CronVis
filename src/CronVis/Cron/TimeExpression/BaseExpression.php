@@ -8,6 +8,8 @@ use InvalidArgumentException;
 
 abstract class BaseExpression
 {
+    use AtCheckTrait;
+
     const ANY = '*';
 
     /**

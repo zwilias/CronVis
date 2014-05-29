@@ -41,6 +41,6 @@ class MonthExpression extends BaseExpression
      */
     protected function _verifyFormat($input)
     {
-        return $input === self::ANY || ($input > 0 && $input <= 12);
+        return $this->_verifyAtFormat($input, 1, 12);
     }
 }

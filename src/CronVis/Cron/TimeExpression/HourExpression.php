@@ -29,7 +29,7 @@ class HourExpression extends BaseExpression
 
     protected function _verifyFormat($at)
     {
-        return $at === self::ANY || ($at >= 0 && $at < 24);
+        return $this->_verifyAtFormat($at, 0, 23);
     }
 
     /**

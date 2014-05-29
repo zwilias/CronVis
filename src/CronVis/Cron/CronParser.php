@@ -5,7 +5,6 @@ namespace CronVis\Cron;
 
 use CronVis\Parser\Parser;
 use CronVis\Parser\Tokenizer;
-use CronVis\Util\LineSource;
 
 class CronParser extends Parser
 {
@@ -71,7 +70,7 @@ class CronParser extends Parser
     public function buildTimeExpression()
     {
         $timeExpression = array();
-        
+
         $timeExpression[CronToken::EXPR_MINUTE] = $this->_combineTokens([CronToken::WHITESPACE]);
         $timeExpression[CronToken::EXPR_HOUR]   = $this->_combineTokens([CronToken::WHITESPACE]);
         $timeExpression[CronToken::EXPR_DOM]    = $this->_combineTokens([CronToken::WHITESPACE]);

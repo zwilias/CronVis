@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ilias
- * Date: 27/05/14
- * Time: 22:39
- */
 
 namespace CronVis\Cron\TimeExpression;
 use DateTime;
@@ -51,4 +45,4 @@ class MinuteExpression extends BaseExpression
     {
         return 'minute';
     }
-} 
+}

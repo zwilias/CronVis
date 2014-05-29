@@ -34,4 +34,4 @@ class CronTokenizer extends Tokenizer
             CronToken::OTHER            => new RegexMatcher('[^\s#%\\\]*')
         ]);
     }
-} 
+}

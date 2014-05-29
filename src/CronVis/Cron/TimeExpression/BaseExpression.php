@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ilias
- * Date: 27/05/14
- * Time: 23:05
- */
 
 namespace CronVis\Cron\TimeExpression;
 

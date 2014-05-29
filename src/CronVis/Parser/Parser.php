@@ -10,7 +10,7 @@ abstract class Parser
     /** @var Tokenizer */
     protected $_tokenizer;
 
-    /** @var LineSource  */
+    /** @var LineSource */
     protected $_lineSource;
     /** @var array[] */
     protected $_tokens;
@@ -56,10 +56,10 @@ abstract class Parser
     abstract protected function _parseTokens();
 
     /**
-     * @param   string      $expressionType
-     * @param   string[]    $allowedMarkers
-     * @param   array       $stopBefore
-     * @param   bool        $consumeMarker
+     * @param   string $expressionType
+     * @param   string[] $allowedMarkers
+     * @param   array $stopBefore
+     * @param   bool $consumeMarker
      * @return  array
      */
     public function buildSimpleExpression($expressionType, array $allowedMarkers = [], array $stopBefore = [], $consumeMarker = true)
@@ -70,13 +70,13 @@ abstract class Parser
 
         if (in_array($token[Tokenizer::KEY_TOKEN], $allowedMarkers)) {
             return [$expressionType => $this->_combineTokens($stopBefore)];
-        } else {
-            $this->_throwUnexpectedTokenException($token);
         }
+
+        $this->_throwUnexpectedTokenException($token);
     }
 
     /**
-     * @param   array   $until
+     * @param   array $until
      *
      * @return  string
      */

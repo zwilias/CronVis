@@ -18,4 +18,4 @@ interface Comparator {
      * @return  int
      */
     function compare($a, $b);
-} 
+}

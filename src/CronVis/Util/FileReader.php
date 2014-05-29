@@ -31,4 +31,4 @@ class FileReader implements LineSource
             fclose($fp);
         }
     }
-} 
+}

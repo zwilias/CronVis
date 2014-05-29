@@ -27,4 +27,4 @@ class EventComparator implements Comparator
 
         return $a->getTime()->getTimestamp() - $b->getTime()->getTimestamp();
     }
-} 
+}

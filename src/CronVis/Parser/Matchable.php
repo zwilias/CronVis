@@ -11,4 +11,4 @@ interface Matchable
      * @return string|false
      */
     function matches($input);
-} 
+}

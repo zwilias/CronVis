@@ -57,7 +57,7 @@ class ListExpression implements Expression
     {
         $diffs = array_map(
             function($jumpTo) use ($jumpFrom) {
-                return min(1, $jumpTo - $jumpFrom);
+                return max(1, $jumpTo - $jumpFrom);
             }, $this->_values
         );
 

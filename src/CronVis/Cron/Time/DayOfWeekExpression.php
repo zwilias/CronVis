@@ -56,10 +56,10 @@ class DayOfWeekExpression extends BaseExpression
     /**
      * @param   int $increment
      *
-     * @return  \DateInterval
+     * @return  string
      */
-    protected function _wrapIntoInterval($increment)
+    protected function _createModificationString($increment)
     {
-        return new \DateInterval(sprintf('P%dD', $increment));
+        return sprintf('midnight +%d days', $increment);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace CronVis\Cron\Time;
 
+use CronVis\Cron\Time\Common\AnyExpression;
 use CronVis\Cron\Time\Common\Expression;
 use CronVis\Cron\Time\Common\Factory;
 use DateTime;
@@ -22,6 +23,11 @@ abstract class BaseExpression
         $this->_expression = Factory::createExpressionFor($this, $input);
     }
 
+    public function isAny()
+    {
+        return $this->_getExpression() instanceof AnyExpression;
+    }
+
     /**
      * @param   DateTime $dateTime
      *
@@ -35,11 +41,21 @@ abstract class BaseExpression
     /**
      * @param   DateTime $dateTime
      *
-     * @return  mixed
+     * @return  string
      */
     public function getIncrement(DateTime $dateTime)
     {
-        return $this->_wrapIntoInterval($this->_getExpression()->getIncrement($this->_extractFromDateTime($dateTime)));
+        return $this->_createModificationString($this->_getExpression()->getIncrement($this->_extractFromDateTime($dateTime)));
+    }
+
+    /**
+     * @param DateTime $dateTime
+     *
+     * @return int
+     */
+    public function getRawIncrement(DateTime $dateTime)
+    {
+        return $this->_getExpression()->getIncrement($this->_extractFromDateTime($dateTime));
     }
 
     /**
@@ -82,7 +98,7 @@ abstract class BaseExpression
     /**
      * @param   int $increment
      *
-     * @return  \DateInterval
+     * @return  string
      */
-    protected abstract function _wrapIntoInterval($increment);
+    protected abstract function _createModificationString($increment);
 }

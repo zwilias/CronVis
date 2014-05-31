@@ -59,8 +59,8 @@ class MonthExpression extends BaseExpression
      *
      * @return  \DateInterval
      */
-    protected function _wrapIntoInterval($increment)
+    protected function _createModificationString($increment)
     {
-        return new \DateInterval(sprintf('P%dM', $increment));
+        return sprintf('midnight first day of +%d months', $increment);
     }
 }

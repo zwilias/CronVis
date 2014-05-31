@@ -41,8 +41,8 @@ class MinuteExpression extends BaseExpression
      *
      * @return  \DateInterval
      */
-    protected function _wrapIntoInterval($increment)
+    protected function _createModificationString($increment)
     {
-        return new \DateInterval(sprintf('PT%dM', $increment));
+        return sprintf('+ %d minutes', $increment);
     }
 }

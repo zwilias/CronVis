@@ -41,8 +41,8 @@ class HourExpression extends BaseExpression
      *
      * @return  \DateInterval
      */
-    protected function _wrapIntoInterval($increment)
+    protected function _createModificationString($increment)
     {
-        return new \DateInterval(sprintf('PT%dH', $increment));
+        return sprintf('first minute +%d hours -1 minute', $increment);
     }
 }

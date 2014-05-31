@@ -1,7 +1,7 @@
 <?php
 
 
-namespace CronVis\Cron\TimeExpression;
+namespace CronVis\Cron\Time;
 
 
 class MonthExpressionTest extends \PHPUnit_Framework_TestCase

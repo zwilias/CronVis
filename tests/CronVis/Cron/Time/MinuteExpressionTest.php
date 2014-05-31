@@ -1,7 +1,7 @@
 <?php
 
 
-namespace CronVis\Cron\TimeExpression;
+namespace CronVis\Cron\Time;
 
 
 class MinuteExpressionTest extends \PHPUnit_Framework_TestCase

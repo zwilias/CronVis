@@ -1,9 +1,9 @@
 <?php
 
 
-namespace CronVis\Cron\TimeExpression;
+namespace CronVis\Cron\Time;
 
-trait TextualCheckTrait
+trait TextualRepresentation
 {
     /**
      * @param   string   $input
@@ -11,7 +11,7 @@ trait TextualCheckTrait
      *
      * @return  boolean
      */
-    protected function _isValidTextual($input, array $validInputs = [])
+    protected function _isValidTextualRepresentation($input, array $validInputs = [])
     {
         $input = strtolower($input);
 
@@ -36,7 +36,7 @@ trait TextualCheckTrait
      *
      * @return  int
      */
-    protected function _getTextualOffset($input, array $validInputs = [])
+    protected function _getTextualRepresentationOffset($input, array $validInputs = [])
     {
         return array_search(
             substr(

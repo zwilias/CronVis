@@ -1,6 +1,6 @@
 <?php
 
-namespace CronVis\Cron\TimeExpression;
+namespace CronVis\Cron\Time;
 
 
 class DayOfMonthExpressionTest extends \PHPUnit_Framework_TestCase

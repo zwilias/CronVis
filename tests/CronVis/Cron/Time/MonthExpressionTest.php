@@ -104,6 +104,8 @@ class MonthExpressionTest extends \PHPUnit_Framework_TestCase
             ['oct', 'OCTOBER'],
             ['nov', 'NOVEMBER'],
             ['dec', 'DECEMBER'],
+            ['apr-oct', '4-10'],
+            ['FEBRUARY-DECEMBER/3', '2,5,8,11'],
         ];
     }
 }

@@ -34,6 +34,45 @@ class HourExpressionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($hourExpression->matches($time));
     }
 
+    public function testMatchesList()
+    {
+        $time = new \DateTime('2014-05-27 22:47:00');
+        $hourExpression = new HourExpression('21,23');
+
+
+        $oneHour = new \DateInterval('PT1H');
+        for ($i = 0; $i < 23; $i++) {
+            $this->assertEquals(in_array($time->format('G'), [21, 23]), $hourExpression->matches($time));
+            $time->add($oneHour);
+        }
+    }
+
+    public function testMatchesRange()
+    {
+        $time = new \DateTime('2014-05-27 22:47:00');
+        $hourExpression = new HourExpression('21-23');
+
+
+        $oneHour = new \DateInterval('PT1H');
+        for ($i = 0; $i < 23; $i++) {
+            $this->assertEquals(in_array($time->format('G'), [21, 22, 23]), $hourExpression->matches($time));
+            $time->add($oneHour);
+        }
+    }
+
+    public function testMatchesRangeWithIncrement()
+    {
+        $time = new \DateTime('2014-05-27 22:47:00');
+        $hourExpression = new HourExpression('21-23/2');
+
+
+        $oneHour = new \DateInterval('PT1H');
+        for ($i = 0; $i < 23; $i++) {
+            $this->assertEquals(in_array($time->format('G'), [21, 23]), $hourExpression->matches($time));
+            $time->add($oneHour);
+        }
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      */

@@ -8,31 +8,30 @@ use CronVis\Cron\Time\BaseExpression;
 
 class ListExpression implements Expression
 {
-    /**
-     * @var BaseExpression
-     */
-    protected $_baseExpression;
-
     protected $_values = [];
 
     /**
-     * @param BaseExpression $baseExpression
-     * @param                $value
+     * @param BaseExpression    $baseExpression
+     * @param string|string[]   $values
      * @throws  \InvalidArgumentException
      */
-    public function __construct(BaseExpression $baseExpression, $value)
+    public function __construct(BaseExpression $baseExpression, $values)
     {
-        $this->_baseExpression = $baseExpression;
-        $values = explode(',', $value);
+        if (!is_array($values)) {
+            $values = explode(',', $values);
+        }
+
         foreach ($values as $value) {
-            $processed = $this->_baseExpression->preProcessNumber($value);
+            $processed = $baseExpression->preProcessNumber($value);
 
             if (
                 !(int)$processed === $processed
                 || $processed < $baseExpression->getMin()
                 || $processed > $baseExpression->getMax()
             ) {
-                throw new \InvalidArgumentException(sprintf("Invalid value '%s' supplied for %s specifier", $value, $baseExpression->getDescription()));
+                throw new \InvalidArgumentException(
+                    sprintf("Invalid value '%s' supplied for %s specifier", $value, $baseExpression->getDescription())
+                );
             }
 
             $this->_values[] = $processed;

@@ -20,6 +20,10 @@ class Factory
             return new AnyExpression();
         }
 
+        if (strpos($input, '/') !== false || strpos($input, '-') !== false) {
+            return new RangeExpression($expression, $input);
+        }
+
         return new ListExpression($expression, $input);
     }
 }

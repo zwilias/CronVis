@@ -2,8 +2,8 @@
 
 
 namespace CronVis\Cron;
-use DateTime;
 
+use DateTime;
 
 class CronEvent
 {
@@ -25,6 +25,7 @@ class CronEvent
 
     /**
      * @param DateTime $time
+     *
      * @return bool
      */
     public function occursAfter(DateTime $time)

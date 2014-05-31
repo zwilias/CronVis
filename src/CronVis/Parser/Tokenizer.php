@@ -17,6 +17,7 @@ class Tokenizer
 
     /**
      * @param string $input
+     *
      * @return array[]
      */
     public function tokenizeLine($input)
@@ -24,8 +25,7 @@ class Tokenizer
         $tokens = array();
         $offset = 0;
 
-        while ($offset < strlen($input))
-        {
+        while ($offset < strlen($input)) {
             $token = $this->_match($input, $offset);
             $offset += strlen($token[Token::KEY_CONTENT]);
             $tokens[] = $token;
@@ -36,7 +36,8 @@ class Tokenizer
 
     /**
      * @param string $line
-     * @param int $offset
+     * @param int    $offset
+     *
      * @return array
      * @throws ParseException
      */
@@ -47,9 +48,9 @@ class Tokenizer
         foreach ($this->_terminals as $token => $matcher) {
             if (($content = $matcher->matches($input)) !== false) {
                 return array(
-                    Token::KEY_TOKEN     => $token,
-                    Token::KEY_CONTENT   => $content,
-                    Token::KEY_OFFSET    => $offset
+                    Token::KEY_TOKEN   => $token,
+                    Token::KEY_CONTENT => $content,
+                    Token::KEY_OFFSET  => $offset
                 );
             }
         }

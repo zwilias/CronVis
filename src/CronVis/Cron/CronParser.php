@@ -23,6 +23,7 @@ class CronParser extends Parser
     protected function _parseTokens()
     {
         $lineResult = $this->handleLine();
+
         return [CronToken::EXPR_LINE => $lineResult];
     }
 
@@ -48,10 +49,12 @@ class CronParser extends Parser
             case CronToken::AT_HOURLY:
             case CronToken::AT_REBOOT:
                 $result = $this->buildCronExpression(
-                    $this->buildSimpleExpression(CronToken::EXPR_AT, [
-                        CronToken::AT_YEARLY, CronToken::AT_MONTHLY, CronToken::AT_WEEKLY,
-                        CronToken::AT_DAILY, CronToken::AT_HOURLY, CronToken::AT_REBOOT
-                    ], [CronToken::WHITESPACE], false)
+                    $this->buildSimpleExpression(
+                        CronToken::EXPR_AT, [
+                            CronToken::AT_YEARLY, CronToken::AT_MONTHLY, CronToken::AT_WEEKLY,
+                            CronToken::AT_DAILY, CronToken::AT_HOURLY, CronToken::AT_REBOOT
+                        ], [CronToken::WHITESPACE], false
+                    )
                 );
                 break;
             case CronToken::DIGIT_ZERO:
@@ -73,22 +76,23 @@ class CronParser extends Parser
         $timeExpression = array();
 
         $timeExpression[CronToken::EXPR_MINUTE] = $this->_combineTokens([CronToken::WHITESPACE]);
-        $timeExpression[CronToken::EXPR_HOUR]   = $this->_combineTokens([CronToken::WHITESPACE]);
-        $timeExpression[CronToken::EXPR_DOM]    = $this->_combineTokens([CronToken::WHITESPACE]);
-        $timeExpression[CronToken::EXPR_MONTH]  = $this->_combineTokens([CronToken::WHITESPACE]);
-        $timeExpression[CronToken::EXPR_DOW]    = $this->_combineTokens([CronToken::WHITESPACE]);
+        $timeExpression[CronToken::EXPR_HOUR] = $this->_combineTokens([CronToken::WHITESPACE]);
+        $timeExpression[CronToken::EXPR_DOM] = $this->_combineTokens([CronToken::WHITESPACE]);
+        $timeExpression[CronToken::EXPR_MONTH] = $this->_combineTokens([CronToken::WHITESPACE]);
+        $timeExpression[CronToken::EXPR_DOW] = $this->_combineTokens([CronToken::WHITESPACE]);
 
         return $timeExpression;
     }
 
     /**
      * @param   array $timeExpression
+     *
      * @return  array
      */
     public function buildCronExpression($timeExpression)
     {
         $cronExpression = [
-            CronToken::EXPR_TIME    => $timeExpression,
+            CronToken::EXPR_TIME => $timeExpression,
             CronToken::EXPR_COMMAND => $this->_combineTokens([CronToken::MARK_HASH, CronToken::MARK_INPUT])
         ];
 
@@ -97,7 +101,9 @@ class CronParser extends Parser
                 case CronToken::MARK_INPUT:
                     $cronExpression = array_merge(
                         $cronExpression,
-                        $this->buildSimpleExpression(CronToken::EXPR_INPUT, [CronToken::MARK_INPUT], [CronToken::MARK_HASH])
+                        $this->buildSimpleExpression(
+                            CronToken::EXPR_INPUT, [CronToken::MARK_INPUT], [CronToken::MARK_HASH]
+                        )
                     );
                     break;
                 case CronToken::MARK_HASH:

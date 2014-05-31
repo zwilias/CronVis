@@ -1,6 +1,7 @@
 <?php
 
 namespace CronVis\Cron;
+
 use DateTime, DateInterval;
 use CronVis\Util\SortedEventList;
 
@@ -12,7 +13,7 @@ class CronTab
     protected $_startTime;
     /** @var DateTime */
     protected $_endTime;
-    /** @var SortedEventList  */
+    /** @var SortedEventList */
     protected $_eventList;
     /** @var CronEntry[] */
     protected $_entries = [];
@@ -59,6 +60,7 @@ class CronTab
 
     /**
      * @param string $format
+     *
      * @return string
      */
     public function getStartTime($format = TIME_FORMAT)
@@ -68,6 +70,7 @@ class CronTab
 
     /**
      * @param string $format
+     *
      * @return string
      */
     public function getEndTime($format = TIME_FORMAT)

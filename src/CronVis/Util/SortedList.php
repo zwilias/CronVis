@@ -53,7 +53,7 @@ class SortedList implements Countable
     }
 
     /**
-     * @param int $index
+     * @param int   $index
      * @param mixed $item
      */
     protected function _insertAtIndex($index, $item)
@@ -68,6 +68,7 @@ class SortedList implements Countable
      *
      * @param   mixed $a
      * @param   mixed $b
+     *
      * @return  int
      */
     protected function _compare($a, $b)

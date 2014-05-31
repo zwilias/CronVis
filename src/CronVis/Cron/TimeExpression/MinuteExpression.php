@@ -1,9 +1,8 @@
 <?php
 
 namespace CronVis\Cron\TimeExpression;
-use DateTime;
-use InvalidArgumentException;
 
+use DateTime;
 
 class MinuteExpression extends BaseExpression
 {
@@ -20,6 +19,7 @@ class MinuteExpression extends BaseExpression
 
     /**
      * @param   DateTime $dateTime
+     *
      * @return  bool
      */
     public function matches(DateTime $dateTime)
@@ -29,6 +29,7 @@ class MinuteExpression extends BaseExpression
 
     /**
      * @param   string $at
+     *
      * @return  bool
      */
     protected function _verifyFormat($at)

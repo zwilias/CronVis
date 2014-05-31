@@ -5,7 +5,6 @@ namespace CronVis\Cron;
 
 use DateTime;
 
-
 class CronEntry
 {
     /** @var CronCommand */
@@ -21,6 +20,7 @@ class CronEntry
 
     /**
      * @param DateTime $time
+     *
      * @return CronEvent
      */
     public function getNextEvent(DateTime $time)

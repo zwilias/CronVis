@@ -2,6 +2,7 @@
 
 
 namespace CronVis\Util;
+
 use CronVis\Cron\CronEvent;
 
 /**

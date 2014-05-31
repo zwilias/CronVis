@@ -2,7 +2,6 @@
 
 namespace CronVis\Cron\TimeExpression;
 
-
 use DateTime;
 
 class DayOfMonthExpression extends BaseExpression
@@ -20,6 +19,7 @@ class DayOfMonthExpression extends BaseExpression
 
     /**
      * @param DateTime $dateTime
+     *
      * @return bool
      */
     public function matches(DateTime $dateTime)

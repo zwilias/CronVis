@@ -3,7 +3,6 @@
 
 namespace CronVis\Cron\TimeExpression;
 
-
 use DateTime;
 
 class DayOfWeekExpression extends BaseExpression
@@ -46,6 +45,7 @@ class DayOfWeekExpression extends BaseExpression
 
     /**
      * @param   DateTime $dateTime
+     *
      * @return  bool
      */
     public function matches(DateTime $dateTime)
@@ -55,11 +55,12 @@ class DayOfWeekExpression extends BaseExpression
 
     /**
      * @param   string $input
+     *
      * @return  boolean
      */
     protected function _verifyFormat($input)
     {
         return $this->_isValidTextual($input, self::$_WEEKDAYS)
-            || $this->_verifyAtFormat($input, 0, 7);
+        || $this->_verifyAtFormat($input, 0, 7);
     }
 }

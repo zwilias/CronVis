@@ -3,23 +3,23 @@
 
 namespace CronVis\Cron\TimeExpression;
 
-
 trait TextualCheckTrait
 {
     /**
-     * @param   string      $input
-     * @param   string[]    $validInputs
+     * @param   string   $input
+     * @param   string[] $validInputs
+     *
      * @return  boolean
      */
     protected function _isValidTextual($input, array $validInputs = [])
     {
         $input = strtolower($input);
 
-        $mapFunction = function($weekDay) use ($input) {
+        $mapFunction = function ($weekDay) use ($input) {
             return strpos(strtolower($input), $weekDay) === 0;
         };
 
-        $reduceFunction = function($carry, $input) {
+        $reduceFunction = function ($carry, $input) {
             return $carry | $input;
         };
 
@@ -31,8 +31,9 @@ trait TextualCheckTrait
     }
 
     /**
-     * @param   string      $input
-     * @param   string[]    $validInputs
+     * @param   string   $input
+     * @param   string[] $validInputs
+     *
      * @return  int
      */
     protected function _getTextualOffset($input, array $validInputs = [])

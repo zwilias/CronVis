@@ -19,6 +19,7 @@ class Regex implements Matchable
 
     /**
      * @param string $input
+     *
      * @return false|string[]
      */
     public function matches($input)

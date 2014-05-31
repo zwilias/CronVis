@@ -3,7 +3,6 @@
 
 namespace CronVis\Cron\TimeExpression;
 
-
 use DateTime;
 
 class MonthExpression extends BaseExpression
@@ -28,6 +27,7 @@ class MonthExpression extends BaseExpression
 
     /**
      * @param   DateTime $dateTime
+     *
      * @return  bool
      */
     public function matches(DateTime $dateTime)
@@ -37,6 +37,7 @@ class MonthExpression extends BaseExpression
 
     /**
      * @param   string $input
+     *
      * @return  boolean
      */
     protected function _verifyFormat($input)

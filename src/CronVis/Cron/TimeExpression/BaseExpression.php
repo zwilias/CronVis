@@ -5,7 +5,6 @@ namespace CronVis\Cron\TimeExpression;
 use DateTime;
 use InvalidArgumentException;
 
-
 abstract class BaseExpression
 {
     use AtCheckTrait;
@@ -18,11 +17,13 @@ abstract class BaseExpression
     public function __construct($input = self::ANY)
     {
         if (!$this->_verifyFormat($input)) {
-            throw new InvalidArgumentException(sprintf(
-                'Invalid %s expression supplied: %s',
-                $this->_getDescription(),
-                $input
-            ));
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Invalid %s expression supplied: %s',
+                    $this->_getDescription(),
+                    $input
+                )
+            );
         }
 
         $this->_assignInput($input);
@@ -35,12 +36,14 @@ abstract class BaseExpression
 
     /**
      * @param   DateTime $dateTime
+     *
      * @return  boolean
      */
     public abstract function matches(DateTime $dateTime);
 
     /**
      * @param   string $input
+     *
      * @return  boolean
      */
     protected abstract function _verifyFormat($input);

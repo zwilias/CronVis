@@ -3,7 +3,6 @@
 
 namespace CronVis\Util;
 
-
 class FileReader implements LineSource
 {
     /** @var string */

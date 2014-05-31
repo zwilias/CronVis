@@ -2,7 +2,6 @@
 
 namespace CronVis\Cron\TimeExpression;
 
-
 use DateTime;
 
 class HourExpression extends BaseExpression
@@ -20,6 +19,7 @@ class HourExpression extends BaseExpression
 
     /**
      * @param DateTime $dateTime
+     *
      * @return bool
      */
     public function matches(DateTime $dateTime)

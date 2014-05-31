@@ -37,13 +37,16 @@ abstract class Parser
                 $i += 1;
             }
         } catch (ParseException $exception) {
-            throw new ParseException(sprintf('Parse failure on line %d: %s', $i, $exception->getMessage()), 0, $exception);
+            throw new ParseException(
+                sprintf('Parse failure on line %d: %s', $i, $exception->getMessage()), 0, $exception
+            );
         }
     }
 
     public function parseLine($line)
     {
         $this->_tokens = $this->_tokenizer->tokenizeLine($line);
+
         return $this->_parseTokens();
     }
 
@@ -56,10 +59,11 @@ abstract class Parser
     abstract protected function _parseTokens();
 
     /**
-     * @param   string $expressionType
+     * @param   string   $expressionType
      * @param   string[] $allowedMarkers
-     * @param   array $stopBefore
-     * @param   bool $consumeMarker
+     * @param   array    $stopBefore
+     * @param   bool     $consumeMarker
+     *
      * @return  array
      */
     public function buildSimpleExpression($expressionType, array $allowedMarkers = [], array $stopBefore = [], $consumeMarker = true)
@@ -73,6 +77,7 @@ abstract class Parser
         }
 
         $this->_throwUnexpectedTokenException($token);
+        return [];
     }
 
     /**
@@ -98,6 +103,7 @@ abstract class Parser
         }
 
         $result = trim(join('', $output));
+
         return $result;
     }
 
@@ -127,6 +133,8 @@ abstract class Parser
 
     protected function _throwUnexpectedTokenException($token)
     {
-        throw new ParseException(sprintf('unexpected token \'%s\' at offset %d.', $token[Token::KEY_TOKEN], $token[Token::KEY_OFFSET]));
+        throw new ParseException(
+            sprintf('unexpected token \'%s\' at offset %d.', $token[Token::KEY_TOKEN], $token[Token::KEY_OFFSET])
+        );
     }
 }

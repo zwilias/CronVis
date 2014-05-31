@@ -3,7 +3,6 @@
 
 namespace CronVis\Util;
 
-
 class StringLineSource implements LineSource
 {
     /** @var string[] */
@@ -21,5 +20,4 @@ class StringLineSource implements LineSource
             yield $line;
         }
     }
-
 }

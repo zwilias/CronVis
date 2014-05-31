@@ -7,13 +7,22 @@ use DateTime;
 
 class MonthExpression extends BaseExpression
 {
+    use TextualCheckTrait;
+
+    /** @var string */
     protected $_at;
+    /** @var string[] */
+    protected static $_MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
     /**
      * @param string $input
      */
     protected function _assignInput($input)
     {
+        if ($this->_isValidTextual($input, self::$_MONTHS)) {
+            $input = $this->_getTextualOffset($input, self::$_MONTHS);
+        }
+
         $this->_at = $input;
     }
 
@@ -42,6 +51,7 @@ class MonthExpression extends BaseExpression
      */
     protected function _verifyFormat($input)
     {
-        return $this->_verifyAtFormat($input, 1, 12);
+        return $this->_verifyAtFormat($input, 1, 12)
+            || $this->_isValidTextual($input, self::$_MONTHS);
     }
 }

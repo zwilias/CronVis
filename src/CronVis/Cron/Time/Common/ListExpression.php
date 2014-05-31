@@ -25,7 +25,7 @@ class ListExpression implements Expression
             $processed = $baseExpression->preProcessNumber($value);
 
             if (
-                !(int)$processed === $processed
+                (int)$processed !== $processed
                 || $processed < $baseExpression->getMin()
                 || $processed > $baseExpression->getMax()
             ) {

@@ -4,6 +4,7 @@ namespace CronVis\Cron;
 
 use DateTime, DateInterval;
 use CronVis\Util\SortedEventList;
+use DateTimeImmutable;
 
 define('TIME_FORMAT', 'Y-m-d H:i:s');
 
@@ -20,15 +21,15 @@ class CronTab
 
     public function __construct()
     {
-        $this->_startTime = new DateTime('now');
-        $this->_endTime = (new DateTime('now'))->add(new DateInterval('P1W'));
+        $this->_startTime = new DateTimeImmutable('now');
+        $this->_endTime = new DateTimeImmutable((new DateTime('now'))->add(new DateInterval('P1W'))->format('c'));
         $this->_eventList = new SortedEventList();
     }
 
     public function addCronEntry(CronEntry $entry)
     {
         $this->_entries[] = $entry;
-        $this->_eventList->add($entry->getNextEvent($this->_startTime));
+        $this->_eventList->add($entry->getFirstEvent($this->_startTime));
     }
 
     /**
@@ -37,13 +38,14 @@ class CronTab
     public function getEvents()
     {
         while (count($this->_eventList) > 0) {
-            $event = $this->_eventList->shift()->getNext();
+            $event = $this->_eventList->shift();
+            $nextEvent = $event->getNext();
 
-            if ($event->occursAfter($this->_endTime)) {
+            if ($nextEvent->occursAfter($this->_endTime)) {
                 continue;
             }
 
-            $this->_eventList->add($event);
+            $this->_eventList->add($nextEvent);
             yield $event;
         }
     }

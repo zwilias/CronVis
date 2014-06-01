@@ -43,6 +43,6 @@ class MinuteExpression extends BaseExpression
      */
     protected function _createModificationString($increment)
     {
-        return sprintf('+ %d minutes', $increment);
+        return sprintf('+%d minutes', $increment);
     }
 }

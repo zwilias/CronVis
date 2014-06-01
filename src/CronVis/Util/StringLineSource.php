@@ -10,7 +10,7 @@ class StringLineSource implements LineSource
 
     function __construct($input)
     {
-        $this->_input = explode('\n', $input);
+        $this->_input = explode("\n", $input);
     }
 
     /** @return \Generator<string> */

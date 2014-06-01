@@ -38,8 +38,14 @@ class TimeExpression
         $this->_month       = $monthExpression;
     }
 
-    public function findMatch(\DateTime $dateTime)
+    /**
+     * @param \DateTimeImmutable $dateTime
+     *
+     * @return \DateTimeImmutable
+     */
+    public function findMatch(\DateTimeImmutable $dateTime)
     {
+        $dateTime = new \DateTime($dateTime->format('c'));
         while (!$this->matches($dateTime)) {
             while (!$this->_month->matches($dateTime)) {
                 $dateTime->modify($this->_month->getIncrement($dateTime));
@@ -66,7 +72,7 @@ class TimeExpression
             }
         }
 
-        return $dateTime;
+        return new \DateTimeImmutable($dateTime->format('c'));
     }
 
     /**

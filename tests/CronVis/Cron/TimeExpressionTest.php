@@ -13,11 +13,11 @@ class TimeExpressionTest extends \PHPUnit_Framework_TestCase
     {
         $timeExpression = TimeExpression::factory($timeTokens);
 
-        $now = new \DateTime($now);
-        $expected = new \DateTime($expected);
+        $now = new \DateTimeImmutable($now);
+        $expected = new \DateTimeImmutable($expected);
 
 
-        $this->assertEquals($expected, $timeExpression->findMatch($now));
+        $this->assertEquals($expected->format('c'), $timeExpression->findMatch($now)->format('c'));
     }
 
     /**
@@ -85,13 +85,6 @@ class TimeExpressionTest extends \PHPUnit_Framework_TestCase
                 ],
                 '2014-05-31 19:04',
                 '2014-06-15 00:00'
-            ],
-            'atYearly' => [
-                [
-                    CronToken::EXPR_AT  => CronToken::AT_YEARLY
-                ],
-                '2014-05-31 19:04',
-                '2015-01-01 00:00'
             ],
             'atMonthly' => [
                 [

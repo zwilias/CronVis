@@ -10,4 +10,9 @@ class CronCommand
     {
         $this->_command = $command;
     }
+
+    public function __toString()
+    {
+        return $this->_command;
+    }
 }

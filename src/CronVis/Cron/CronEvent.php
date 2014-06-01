@@ -3,16 +3,16 @@
 
 namespace CronVis\Cron;
 
-use DateTime;
+use DateTimeImmutable;
 
 class CronEvent
 {
     /** @var CronEntry */
     protected $_cronEntry;
-    /** @var DateTime */
+    /** @var DateTimeImmutable */
     protected $_time;
 
-    public function __construct(DateTime $time, CronEntry $cronEntry)
+    public function __construct(DateTimeImmutable $time, CronEntry $cronEntry)
     {
         $this->_time = $time;
         $this->_cronEntry = $cronEntry;
@@ -24,20 +24,25 @@ class CronEvent
     }
 
     /**
-     * @param DateTime $time
+     * @param DateTimeImmutable $time
      *
      * @return bool
      */
-    public function occursAfter(DateTime $time)
+    public function occursAfter(DateTimeImmutable $time)
     {
         return $this->_time > $time;
     }
 
     /**
-     * @return DateTime
+     * @return DateTimeImmutable
      */
     public function getTime()
     {
         return $this->_time;
+    }
+
+    public function getCommand()
+    {
+        return $this->_cronEntry->getCommand();
     }
 }

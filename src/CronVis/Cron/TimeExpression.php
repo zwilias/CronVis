@@ -4,6 +4,7 @@
 namespace CronVis\Cron;
 
 
+use CronVis\Cron\Time\BaseExpression;
 use CronVis\Cron\Time\DayOfMonthExpression;
 use CronVis\Cron\Time\DayOfWeekExpression;
 use CronVis\Cron\Time\HourExpression;
@@ -91,12 +92,47 @@ class TimeExpression
 
     public static function factory($tokens)
     {
+        if (isset($tokens[CronToken::EXPR_AT])) {
+            $hourPart       = BaseExpression::ANY;
+            $dayOfMonthPart = BaseExpression::ANY;
+            $monthPart      = BaseExpression::ANY;
+            $dayOfWeekPart  = BaseExpression::ANY;
+
+            switch ($tokens[CronToken::EXPR_AT]) {
+                case CronToken::AT_WEEKLY:
+                    $minutePart = '0';
+                    $hourPart = '0';
+                    $dayOfWeekPart = '0';
+                    break;
+                /** @noinspection PhpMissingBreakStatementInspection */
+                case CronToken::AT_YEARLY:
+                    $monthPart = '1';
+                /** @noinspection PhpMissingBreakStatementInspection */
+                case CronToken::AT_MONTHLY:
+                    $dayOfMonthPart = '1';
+                /** @noinspection PhpMissingBreakStatementInspection */
+                case CronToken::AT_DAILY:
+                    $hourPart = '0';
+                case CronToken::AT_HOURLY:
+                    $minutePart = '0';
+                    break;
+                default:
+                    throw new \InvalidArgumentException(sprintf('Unrecognized @format: %s', $tokens[CronToken::EXPR_AT]));
+            }
+        } else {
+            $minutePart = $tokens[CronToken::EXPR_MINUTE];
+            $hourPart = $tokens[CronToken::EXPR_HOUR];
+            $dayOfMonthPart = $tokens[CronToken::EXPR_DOM];
+            $monthPart = $tokens[CronToken::EXPR_MONTH];
+            $dayOfWeekPart = $tokens[CronToken::EXPR_DOW];
+        }
+
         return new TimeExpression(
-            new MinuteExpression($tokens[CronToken::EXPR_MINUTE]),
-            new HourExpression($tokens[CronToken::EXPR_HOUR]),
-            new DayOfMonthExpression($tokens[CronToken::EXPR_DOM]),
-            new MonthExpression($tokens[CronToken::EXPR_MONTH]),
-            new DayOfWeekExpression($tokens[CronToken::EXPR_DOW])
+            new MinuteExpression($minutePart),
+            new HourExpression($hourPart),
+            new DayOfMonthExpression($dayOfMonthPart),
+            new MonthExpression($monthPart),
+            new DayOfWeekExpression($dayOfWeekPart)
         );
     }
 }

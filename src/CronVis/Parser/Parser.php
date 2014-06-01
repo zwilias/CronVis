@@ -3,13 +3,14 @@
 
 namespace CronVis\Parser;
 
+use CronVis\Util\FileReader;
 use CronVis\Util\LineSource;
+use CronVis\Util\StringLineSource;
 
 abstract class Parser
 {
     /** @var Tokenizer */
     protected $_tokenizer;
-
     /** @var LineSource */
     protected $_lineSource;
     /** @var array[] */
@@ -43,10 +44,14 @@ abstract class Parser
         }
     }
 
-    public function parseLine($line)
+    public function tokenizeLine($line)
     {
         $this->_tokens = $this->_tokenizer->tokenizeLine($line);
+    }
 
+    public function parseLine($line)
+    {
+        $this->tokenizeLine($line);
         return $this->_parseTokens();
     }
 
@@ -136,5 +141,15 @@ abstract class Parser
         throw new ParseException(
             sprintf('unexpected token \'%s\' at offset %d.', $token[Token::KEY_TOKEN], $token[Token::KEY_OFFSET])
         );
+    }
+
+    public static function fromString($string)
+    {
+        return new static(new StringLineSource($string));
+    }
+
+    public static function fromFile($fileName)
+    {
+        return new static(new FileReader($fileName));
     }
 }

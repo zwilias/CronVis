@@ -15,17 +15,15 @@ class CronParserTest extends \PHPUnit_Framework_TestCase
         $input = <<<EOF
 # This is a comment
 EOF;
-
-        $lineSource = new StringLineSource($input);
-        $cronParser = new CronParser($lineSource);
+        $cronParser = CronParser::fromString($input);
 
 
-        $output = $cronParser->parseLine($input);
+        $output = iterator_to_array($cronParser->parseLines());
 
 
-        $this->assertEquals([
+        $this->assertEquals([[
             CronToken::EXPR_LINE => [ CronToken::EXPR_COMMENT => "This is a comment" ]
-        ], $output);
+        ]], $output);
     }
 
     public function testParse_EmptyLine_Returns_NullToken()
@@ -33,8 +31,7 @@ EOF;
         $input = <<<EOF
 EOF;
 
-        $lineSource = new StringLineSource($input);
-        $cronParser = new CronParser($lineSource);
+        $cronParser = CronParser::fromString($input);
 
 
         $output = $cronParser->parseLine($input);
@@ -48,14 +45,13 @@ EOF;
     /**
      * @expectedException \CronVis\Parser\ParseException
      */
-    public function testParse_UnexptectedToken_ThrowsException()
+    public function testParse_UnexpectedToken_ThrowsException()
     {
         $input = <<<EOF
 % this is not supposed to happen
 EOF;
 
-        $lineSource = new StringLineSource($input);
-        $cronParser = new CronParser($lineSource);
+        $cronParser = CronParser::fromString($input);
 
 
         iterator_to_array($cronParser->parseLines());
@@ -66,18 +62,17 @@ EOF;
         $input =  <<<EOF
 @daily /execute/this/command >/dev/null 2>&1
 EOF;
-        $lineSource = new StringLineSource($input);
-        $cronParser = new CronParser($lineSource);
+        $cronParser = CronParser::fromString($input);
 
 
-        $output = $cronParser->parseLine($input);
+        $output = iterator_to_array($cronParser->parseLines());
 
-        $this->assertEquals([
+        $this->assertEquals([[
             CronToken::EXPR_LINE => [
                 CronToken::EXPR_TIME    => [CronToken::EXPR_AT => '@daily'],
                 CronToken::EXPR_COMMAND => '/execute/this/command >/dev/null 2>&1'
             ]
-        ], $output);
+        ]], $output);
     }
 
     public function testParseTimeExpression()
@@ -85,8 +80,7 @@ EOF;
         $input = <<<EOF
 * * * * * /this/cant/work.sh
 EOF;
-        $lineSource = new StringLineSource($input);
-        $cronParser = new CronParser($lineSource);
+        $cronParser = CronParser::fromString($input);
 
 
         $tokens = array();
@@ -145,14 +139,10 @@ EOF;
         $input = <<<EOF
 * * * * * /this/cant/work.sh \% this is no input # and this is a comment
 EOF;
-        $lineSource = new StringLineSource($input);
-        $cronParser = new CronParser($lineSource);
+        $cronParser = CronParser::fromString($input);
 
 
-        $tokens = array();
-        foreach ($cronParser->parseLines() as $lineTokens) {
-            $tokens[] = $lineTokens;
-        }
+        $tokens = iterator_to_array($cronParser->parseLines());
 
 
         $this->assertEquals([[
@@ -170,4 +160,3 @@ EOF;
         ]], $tokens);
     }
 }
- 
